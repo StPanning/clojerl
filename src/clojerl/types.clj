@@ -1,5 +1,6 @@
 (ns clojerl.types
   (:import (com.ericsson.otp.erlang OtpErlangAtom
+                                    OtpErlangBinary
                                     OtpErlangDouble
                                     OtpErlangLong
                                     OtpErlangObject
@@ -53,7 +54,6 @@
   (to-erlang [e]
     (container-to-erlang e)))
 
-
 (extend-protocol ErlangToClojure
   OtpErlangLong
   (to-clojure [e] (.longValue e))
@@ -74,3 +74,15 @@
   OtpErlangList
   (to-clojure [e]
     (mapv to-clojure (.elements e))))
+
+(defn decode-term [b]
+  (to-clojure (.getObject b)))
+
+(defn encode-term [e]
+  (OtpErlangBinary. (to-erlang e)))
+
+(defn decode-binary [b]
+  (.getObject b))
+
+(defn encode-binary [e]
+  (OtpErlangBinary. e))
