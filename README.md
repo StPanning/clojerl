@@ -12,7 +12,7 @@ clojerl/test/clojerl/node-test.clj
 ## Todo
 
 * add test with erlang-node
-* add support for erlang binaries
+* add link/unlink support
 
 ## License
 
