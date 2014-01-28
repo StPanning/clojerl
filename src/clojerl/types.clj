@@ -52,7 +52,11 @@
 
   clojure.lang.PersistentVector
   (to-erlang [e]
-    (container-to-erlang e)))
+    (container-to-erlang e))
+
+  OtpErlangObject
+  (to-erlang [e] e))
+
 
 (extend-protocol ErlangToClojure
   OtpErlangLong
@@ -86,3 +90,7 @@
 
 (defn encode-binary [e]
   (OtpErlangBinary. e))
+
+(defn tuple [col]
+  (OtpErlangTuple. (into-array OtpErlangObject
+                               (mapv to-erlang col))))
