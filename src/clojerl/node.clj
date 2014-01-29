@@ -50,3 +50,6 @@
      (.send mbox recipient (erltypes/to-erlang message)))
   ([mbox recipient node message]
      (.send mbox recipient node (erltypes/to-erlang message))))
+
+(defn self [mbox]
+  (.self mbox))
