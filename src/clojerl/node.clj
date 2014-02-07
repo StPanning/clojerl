@@ -1,4 +1,5 @@
 (ns clojerl.node
+  (:refer-clojure :exclude [send])
   (:require [clojerl.types :as erltypes])
   (:import (com.ericsson.otp.erlang OtpNode
                                     OtpMsg)))
@@ -53,3 +54,11 @@
 
 (defn self [mbox]
   (.self mbox))
+
+(defn ping [mbox target]
+  (.ping mbox target))
+
+(defn send-message [mbox recipient message]
+  (.send mbox recipient
+         (erltypes/tuple [(self mbox)
+                          (erltypes/to-erlang message)])))
